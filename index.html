@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0,viewport-fit=cover">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <link rel="shortcut icon" href="">
+    <title>诗词时间</title>
+    <script type="text/javascript" src="/data.js"></script>
+    <style type="text/css">
+
+        body {
+            font-size: 22px;
+            padding: 100px;
+        }
+
+        * {
+            font-family: -apple-system, "Helvetica Neue", Helvetica, "Nimbus Sans L", Arial, "Liberation Sans", "PingFang SC", "Hiragino Sans GB", "Source Han Sans CN", "Source Han Sans SC", "Microsoft YaHei", "Wenquanyi Micro Hei", "WenQuanYi Zen Hei", "ST Heiti", SimHei, "WenQuanYi Zen Hei Sharp", sans-serif;
+        }
+
+
+        .page-work .content.indent {
+            text-align: center;
+        }
+
+        .page-work .content.indent {
+            margin-top: 10px;
+            line-height: 1.9;
+            text-indent: 1.5em;
+        }
+
+        .title {
+            text-align: center;
+            font-size: 30px;
+            margin-top: 40px;
+            font-weight: 700;
+            padding: 0 20px;
+        }
+
+        .author {
+            text-align: center;
+            margin-top: 10px;
+            font-size: 18px;
+        }
+
+        .button, .pointer-finger, button {
+            cursor: pointer;
+        }
+
+
+    </style>
+</head>
+<body>
+
+<div class="page page-work">
+    <div class="work">
+        <div class="title">钗头凤</div>
+        <div class="author"><span class="pointer-finger">[宋] 陆游</span></div>
+        <div class="content indent">
+            <p>红酥手，黄縢酒，满城春色宫墙柳。东风恶，欢情薄。一怀愁绪，几年离索。错！错！错！</p>
+            <p>春如旧，人空瘦，泪痕红浥鲛绡透。桃花落，闲池阁。山盟虽在，锦书难托。莫！莫！莫！</p>
+        </div>
+    </div>
+</div>
+
+<script type="application/javascript">
+
+
+    let fadeAndMove = [
+        {
+            opacity: 0,
+            transform: `translateY(-30px)`,
+        },
+        {
+            opacity: 1,
+            transform: `translateY(0px)`,
+        },
+    ];
+
+    let titleTiming = {
+        duration: 2000,
+        easing: "ease-in-out",
+    };
+
+
+    let onclick = function () {
+
+        let item = POEM_DATA[Math.floor(Math.random() * POEM_DATA.length)].split(";");
+
+        let work = document.querySelector(".work");
+        let title = document.querySelector(".title");
+        let author = document.querySelector(".author > span");
+
+        title.innerHTML = item[2];
+        author.innerHTML = "[" + item[0] + "] " + item[1];
+        let content = document.querySelector(".content");
+
+        var poem = []
+        for (var i = 3; i < item.length; i++) {
+            poem.push(item[i]);
+        }
+
+        var poemContent = ""
+
+        if (poem.length % 2 == 0) {
+
+            var i = 0
+
+            while (true) {
+
+                if (i == poem.length) {
+                    break
+                }
+
+                poemContent = poemContent + "<p>" + poem[i] + "。" + poem[i + 1] + "</p>";
+                i = i + 2
+            }
+
+        } else {
+
+            poem.forEach((e) => {
+                poemContent = poemContent + "<p>" + e + "</p>";
+            })
+        }
+
+        content.innerHTML = poemContent;
+
+        work.animate(fadeAndMove, titleTiming);
+
+    };
+
+    document.body.onclick = onclick;
+
+
+    document.addEventListener('keydown', function (event) {
+        if (event.key == "ArrowRight" || event.key == "ArrowLeft" || event.key == "ArrowUp" || event.key == "ArrowDown") {
+            onclick();
+        }
+    });
+
+
+</script>
+
+</body>
+</html>
