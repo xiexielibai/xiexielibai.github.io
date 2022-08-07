@@ -10,8 +10,8 @@
     <style type="text/css">
 
         body {
-            font-size: 22px;
-            padding: 100px;
+            font-size: 38px;
+            padding: 20px;
         }
 
         * {
@@ -21,32 +21,34 @@
 
         .page-work .content.indent {
             text-align: center;
-        }
 
-        .page-work .content.indent {
-            margin-top: 10px;
+            margin: auto;
+
+            height: 70%;
+            vertical-align: middle;
+
             line-height: 1.9;
             text-indent: 1.5em;
+            writing-mode: vertical-rl;
+
         }
 
-        .title {
-            text-align: center;
-            font-size: 30px;
-            margin-top: 40px;
-            font-weight: 700;
-            padding: 0 20px;
+
+        p {
+            margin: 0 auto
         }
 
-        .author {
-            text-align: center;
-            margin-top: 10px;
-            font-size: 18px;
+
+        p:first-child {
+            font-size: 28px;
         }
 
-        .button, .pointer-finger, button {
+
+        p:nth-child(2) {
+            font-size: 16px;
             cursor: pointer;
-        }
 
+        }
 
     </style>
 </head>
@@ -54,11 +56,27 @@
 
 <div class="page page-work">
     <div class="work">
-        <div class="title">钗头凤</div>
-        <div class="author"><span class="pointer-finger">[宋] 陆游</span></div>
         <div class="content indent">
-            <p>红酥手，黄縢酒，满城春色宫墙柳。东风恶，欢情薄。一怀愁绪，几年离索。错！错！错！</p>
-            <p>春如旧，人空瘦，泪痕红浥鲛绡透。桃花落，闲池阁。山盟虽在，锦书难托。莫！莫！莫！</p>
+            <p>夜雨寄北</p>
+
+            <p>[唐] 李商隐</p>
+            <hr/>
+
+
+            <p>君问归期未有期</p>
+            <hr/>
+
+            <p>巴山夜雨涨秋池</p>
+            <hr/>
+
+
+            <p>何当共剪西窗烛</p>
+            <hr/>
+
+
+            <p>却话巴山夜雨时</p>
+            <hr/>
+
         </div>
     </div>
 </div>
@@ -69,7 +87,7 @@
     let fadeAndMove = [
         {
             opacity: 0,
-            transform: `translateY(-30px)`,
+            transform: `translateY(-50px)`,
         },
         {
             opacity: 1,
@@ -88,11 +106,7 @@
         let item = POEM_DATA[Math.floor(Math.random() * POEM_DATA.length)].split(";");
 
         let work = document.querySelector(".work");
-        let title = document.querySelector(".title");
-        let author = document.querySelector(".author > span");
 
-        title.innerHTML = item[2];
-        author.innerHTML = "[" + item[0] + "] " + item[1];
         let content = document.querySelector(".content");
 
         var poem = []
@@ -100,11 +114,17 @@
             poem.push(item[i]);
         }
 
-        var poemContent = ""
+        var poemContent = "<p>" + item[2] + "</p><p>" + "[" + item[0] + "] " + item[1] + "</p><hr/>"
 
-        if (poem.length % 2 == 0) {
+        if (poem.length == 4) {
+            poemContent = poemContent + "<p>" + poem[0] + "</p><hr/>";
+            poemContent = poemContent + "<p>" + poem[1] + "</p><hr/>";
+            poemContent = poemContent + "<p>" + poem[2] + "</p><hr/>";
+            poemContent = poemContent + "<p>" + poem[3] + "</p><hr/>";
 
-            var i = 0
+        } else {
+
+            var i = 0;
 
             while (true) {
 
@@ -112,15 +132,25 @@
                     break
                 }
 
-                poemContent = poemContent + "<p>" + poem[i] + "。" + poem[i + 1] + "</p>";
+                if (i + 1 == poem.length) {
+                    poemContent = poemContent + "<p>" + poem[i] + "</p><hr/>";
+                    break
+                }
+
+                if (poem[i].length >= 8) {
+                    poemContent = poemContent + "<p>" + poem[i] + "</p><hr/>";
+                    poemContent = poemContent + "<p>" + poem[i + 1] + "</p><hr/>";
+                } else {
+
+                    poemContent = poemContent + "<p>" + poem[i] + "，" + poem[i + 1] + "</p><hr/>";
+
+                }
+
+
                 i = i + 2
+
             }
 
-        } else {
-
-            poem.forEach((e) => {
-                poemContent = poemContent + "<p>" + e + "</p>";
-            })
         }
 
         content.innerHTML = poemContent;
