@@ -11,7 +11,7 @@
 
         body {
             font-size: 30px;
-            padding-top: 25px;
+            padding: 30px;
             background: url(back.jpeg);
             background-color: #f6f5f5;
             font-family: "STFangsong";
@@ -53,12 +53,18 @@
 
         }
 
-        span {
+        span.author {
             background-color: red;
             color: white;
             padding: 2px;
             border-radius: 5px;
             font-family: "STHeiti";
+
+        }
+
+        span.title {
+            border-style: solid;
+            border-width: 1px;
 
         }
 
@@ -69,7 +75,7 @@
 <div class="page page-work">
     <div class="work">
         <div class="content indent">
-            <p>夜雨寄北</p>
+            <p><span class="title">夜雨寄北</span></p>
 
             <p> &emsp;</p>
             <hr/>
@@ -91,7 +97,7 @@
 
             <p> &emsp;</p>
 
-            <p><span>唐 李商隐</span></p>
+            <p><span class="author">唐 李商隐</span></p>
 
 
         </div>
@@ -131,7 +137,8 @@
             poem.push(item[i]);
         }
 
-        var poemContent = "<p>" + item[2] + "</p><p> &emsp;</p><hr/>"
+        //title
+        var poemContent = "<p><span class='title'>" + item[2] + "</span></p><p> &emsp;</p><hr/>"
 
         if (poem.length == 4) {
             poemContent = poemContent + "<p>" + poem[0] + "</p><hr/>";
@@ -143,35 +150,47 @@
 
             var i = 0;
 
-            while (true) {
+            while (i < poem.length) {
 
-                if (i == poem.length) {
+                let p = poem[i]
+                let len = p.length;
+
+
+                let next = i + 1;
+
+                if (next >= poem.length) {
+
+                    poemContent = poemContent + "<p>" + p + "</p><hr/>";
+
                     break
                 }
 
-                if (i + 1 == poem.length) {
-                    poemContent = poemContent + "<p>" + poem[i] + "</p><hr/>";
-                    break
-                }
 
-                if (poem[i].length >= 8) {
-                    poemContent = poemContent + "<p>" + poem[i] + "</p><hr/>";
-                    poemContent = poemContent + "<p>" + poem[i + 1] + "</p><hr/>";
+                if (poem[next].length == len) {
+
+                    if (len >= 8) {
+                        poemContent = poemContent + "<p>" + p + "</p><hr/>";
+                        poemContent = poemContent + "<p>" + poem[next] + "</p><hr/>";
+                    } else {
+                        poemContent = poemContent + "<p>" + p + "&emsp;" + poem[next] + "</p><hr/>";
+                    }
+
+
+                    i = next + 1;
+
                 } else {
 
-                    poemContent = poemContent + "<p>" + poem[i] + "&emsp;" + poem[i + 1] + "</p><hr/>";
+                    poemContent = poemContent + "<p>" + poem[i] + "</p><hr/>";
+                    i = i + 1;
 
                 }
-
-
-                i = i + 2
-
             }
-
         }
 
+
+        //author
         poemContent = poemContent + "<p> &emsp;</p>"
-        poemContent = poemContent + "<p><span>" + item[0] + " " + item[1] + "</span></p>"
+        poemContent = poemContent + "<p><span class='author'>" + item[0] + " " + item[1] + "</span></p>"
 
         content.innerHTML = poemContent;
 
@@ -188,6 +207,8 @@
         }
     });
 
+
+    setInterval(onclick, 15000);
 
 </script>
 
