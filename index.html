@@ -11,7 +11,7 @@
 
         body {
             font-size: 35px;
-            padding-top: 20px;
+            padding-top: 25px;
             background-color: #f6f5f5;
         }
 
@@ -42,16 +42,23 @@
 
         p:first-child {
             font-size: 28px;
-            border-style:solid;
-            border-width:1px;
             background-color: #e3e2e2;
         }
 
 
-        p:nth-child(2) {
+        p:last-child {
             font-size: 16px;
             cursor: pointer;
+            text-align: right;
 
+
+        }
+
+        span {
+            background-color: red;
+            color: white;
+            padding: 2px;
+            border-radius: 5px;
         }
 
     </style>
@@ -63,7 +70,7 @@
         <div class="content indent">
             <p>夜雨寄北</p>
 
-            <p>[唐] 李商隐</p>
+            <p> &emsp;</p>
             <hr/>
 
 
@@ -80,6 +87,11 @@
 
             <p>却话巴山夜雨时</p>
             <hr/>
+
+            <p> &emsp;</p>
+
+            <p><span>唐 李商隐</span></p>
+
 
         </div>
     </div>
@@ -118,7 +130,7 @@
             poem.push(item[i]);
         }
 
-        var poemContent = "<p>" + item[2] + "</p><p>" + "[" + item[0] + "] " + item[1] + "</p><hr/>"
+        var poemContent = "<p>" + item[2] + "</p><p> &emsp;</p><hr/>"
 
         if (poem.length == 4) {
             poemContent = poemContent + "<p>" + poem[0] + "</p><hr/>";
@@ -156,6 +168,9 @@
             }
 
         }
+
+        poemContent = poemContent + "<p> &emsp;</p>"
+        poemContent = poemContent + "<p><span>" + item[0] + " " + item[1] + "</span></p>"
 
         content.innerHTML = poemContent;
 
